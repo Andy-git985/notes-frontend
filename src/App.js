@@ -1,11 +1,12 @@
-// e: Adding styles to React app -Inline styles
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 import Note from './components/Note';
 import Notification from './components/Notification';
 import Toggable from './components/Toggable';
 import LoginForm from './components/LoginForm';
 import NoteForm from './components/NoteForm';
 import Footer from './components/Footer';
+
 import noteService from './services/notes';
 import loginService from './services/login';
 
@@ -16,6 +17,7 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const noteFormRef = useRef();
 
   useEffect(() => {
     noteService.getAll().then((initalNotes) => {
@@ -53,6 +55,7 @@ const App = () => {
   };
 
   const addNote = (noteObject) => {
+    noteFormRef.current.toggleVisibility();
     noteService
       .create(noteObject)
       .then((returnedNote) => {
@@ -108,7 +111,7 @@ const App = () => {
       ) : (
         <div>
           <p>{user.name} logged-in</p>
-          <Toggable buttonLabel="new note">
+          <Toggable buttonLabel="new note" ref={noteFormRef}>
             <NoteForm createNote={addNote} />
           </Toggable>
         </div>
