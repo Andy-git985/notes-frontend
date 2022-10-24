@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import Note from './components/Note';
 import Notification from './components/Notification';
-import Toggable from './components/Toggable';
+import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
 import NoteForm from './components/NoteForm';
 import Footer from './components/Footer';
@@ -99,7 +99,7 @@ const App = () => {
       <Notification message={errorMessage} />
 
       {user === null ? (
-        <Toggable buttonLabel="login">
+        <Togglable buttonLabel="login">
           <LoginForm
             username={username}
             password={password}
@@ -107,13 +107,13 @@ const App = () => {
             handlePasswordChange={({ target }) => setPassword(target.value)}
             handleSubmit={handleLogin}
           />
-        </Toggable>
+        </Togglable>
       ) : (
         <div>
           <p>{user.name} logged-in</p>
-          <Toggable buttonLabel="new note" ref={noteFormRef}>
+          <Togglable buttonLabel="new note" ref={noteFormRef}>
             <NoteForm createNote={addNote} />
-          </Toggable>
+          </Togglable>
         </div>
       )}
 
