@@ -56,25 +56,18 @@ const App = () => {
 
   const addNote = (noteObject) => {
     noteFormRef.current.toggleVisibility();
-    noteService.create(noteObject).then((returnedNote) => {
-      setNotes(notes.concat(returnedNote));
-    });
+    noteService
+      .create(noteObject)
+      .then((returnedNote) => {
+        setNotes(notes.concat(returnedNote));
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.error);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+      });
   };
-
-  // const addNote = (noteObject) => {
-  //   noteFormRef.current.toggleVisibility();
-  //   noteService
-  //     .create(noteObject)
-  //     .then((returnedNote) => {
-  //       setNotes(notes.concat(returnedNote));
-  //     })
-  //     .catch((error) => {
-  //       setErrorMessage(error.response.data.error);
-  //       setTimeout(() => {
-  //         setErrorMessage(null);
-  //       }, 5000);
-  //     });
-  // };
 
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
