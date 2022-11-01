@@ -40,6 +40,13 @@ describe('Note ', function () {
   //   cy.get('html').should('not.contain', 'Matti Luukkainen logged in');
   // });
 
+  it('then example', function () {
+    cy.get('button').then((buttons) => {
+      console.log('number of buttons', buttons.length);
+      cy.wrap(buttons[0]).click();
+    });
+  });
+
   describe('when logged in', function () {
     beforeEach(function () {
       cy.login({ username: 'mluukkai', password: 'salainen' });
