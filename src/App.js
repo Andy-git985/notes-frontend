@@ -56,18 +56,25 @@ const App = () => {
 
   const addNote = (noteObject) => {
     noteFormRef.current.toggleVisibility();
-    noteService
-      .create(noteObject)
-      .then((returnedNote) => {
-        setNotes(notes.concat(returnedNote));
-      })
-      .catch((error) => {
-        setErrorMessage(error.response.data.error);
-        setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
-      });
+    noteService.create(noteObject).then((returnedNote) => {
+      setNotes(notes.concat(returnedNote));
+    });
   };
+
+  // const addNote = (noteObject) => {
+  //   noteFormRef.current.toggleVisibility();
+  //   noteService
+  //     .create(noteObject)
+  //     .then((returnedNote) => {
+  //       setNotes(notes.concat(returnedNote));
+  //     })
+  //     .catch((error) => {
+  //       setErrorMessage(error.response.data.error);
+  //       setTimeout(() => {
+  //         setErrorMessage(null);
+  //       }, 5000);
+  //     });
+  // };
 
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
@@ -110,7 +117,7 @@ const App = () => {
         </Togglable>
       ) : (
         <div>
-          <p>{user.name} logged-in</p>
+          <p>{user.name} logged in</p>
           <Togglable buttonLabel="new note" ref={noteFormRef}>
             <NoteForm createNote={addNote} />
           </Togglable>
